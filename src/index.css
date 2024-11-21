@@ -44,3 +44,11 @@
     transform: rotate(450deg);
   }
 }
+
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
+}

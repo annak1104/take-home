@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import mockJson from "./mock.json";
 
 export type ListItem = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   isVisible: boolean;
@@ -21,10 +21,17 @@ export const useGetListData = () => {
         throw new Error("👀");
       }
 
-      const mockData = mockJson as Omit<ListItem, "isVisible">[];
+      const mockData: Omit<ListItem, "isVisible">[] = (mockJson as Array<{
+        id: number;
+        title: string;
+        description: string;
+      }>).map((item) => ({
+        ...item,
+        id: String(item.id),
+      }));
 
       return shuffle(mockData).map((item) => {
-        return { ...item, isVisible: getRandom() > 50 ? true : false };
+        return { ...item, isVisible: getRandom() > 50 };
       });
     },
   });
